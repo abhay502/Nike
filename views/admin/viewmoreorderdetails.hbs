@@ -1,0 +1,118 @@
+
+
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-primary">Booked Details</h5>
+        
+        <p class="card-text">booked details of orders</p>
+        
+        <h6>Name:    {{orderDetails.[0].userdetails.username}} </h6>
+         <h6>Email: {{orderDetails.[0].userdetails.email}}</h6>
+       
+       <h6>Phone: {{orderDetails.[0].userdetails.phonenumber}}</h6>
+ 
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-5">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-primary">Address Details</h5>
+        <p class="card-text">Address details of orders</p>
+    
+        <h6>House name: {{orderDetails.[0].deliveryDetails.address}}</h6>
+         <h6> PIN: {{orderDetails.[0].deliveryDetails.pincode}}</h6>
+          <h6> LandMark: {{orderDetails.[0].Address.address}}</h6>
+        <h6> Town: {{orderDetails.[0].Address.town}}</h6>
+        <h6> State: {{orderDetails.[0].Address.state}}</h6>
+
+
+         <h6> Phone : {{orderDetails.[0].deliveryDetails.mobile}}</h6>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-primary">Other Details</h5>
+        
+        <p class="card-text">other details of orders</p>
+ 
+        <h6>Payment-Method:    {{orderDetails.[0].paymentMethod}} </h6>
+         <h6>Order-Status: {{orderDetails.[0].status}}</h6>
+       
+       <h6>Date: {{orderDetails.[0].date}}</h6>
+  
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="container-fluid pt-4 px-4">
+                 
+                <div class="row g-4">
+                   
+                    <div class="col-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h2 class="text-center">Ordered Products</h2>
+
+                            
+
+                            <div class="table-responsive mt-5">
+                                
+                                <table class="table text-dark">
+                                    <thead>
+                                        <tr class="">
+                                            <th scope="col"></th>
+                                            <th scope="col">PRODUCT</th>
+                                            <th scope="col">PRICE</th>
+                                            <th scope="col">QUANTITY</th>
+                                            
+                                            <th scope="col">SUBTOTAL</th>
+                                            <th scope="col">SHIPPING</th>
+                                            
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         {{#each orderDetails}}
+                                        <tr>
+                                           {{!-- onclick=" return confirm('Are you sure to delete {{this.title}}')" --}}
+                                             <td><img style="width: 60px;  " src="/images/product/{{this.orderedProducts.img.[0]}}" alt="Product image"></td>
+                                            <td>{{this.orderedProducts.title}}</td>
+                                            <td>{{this.orderedProducts.price}}</td>
+                                            <td>{{this.products.quantity}}</td>
+                                            <td>₹{{this.totalAmount}}</td>
+                                                   
+                                           
+                                           
+                                            <td>{{this.status}}</td>
+                                            
+                                           
+                                            
+                                        </tr>
+                                        {{#if this.returnReason}}
+                                         <h5>Return requested 📩</h5>
+                                         <h6>Return reason 🖋️: <span class="text-danger">{{this.returnReason}}</span></h6>
+                                         {{/if}}
+                                       
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+
+                
+            </div>
+</div>

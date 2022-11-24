@@ -1,0 +1,66 @@
+
+
+
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h3 class="mb-4">Edit Product Page</h3>
+                            <form   action="/admin/edit-product/{{productDetails._id}}"  method="post" enctype="multipart/form-data"> 
+                                <div class="mb-3">
+                                    <h6>Title</h6>
+                                    <input type="text" name="title"  placeholder="Enter product title" class="form-control"  value="{{productDetails.title}}" required="" >
+                                                                                                      
+                                    
+                                </div>
+                                <div class="mb-3">
+                                    
+                                    <h6>Brand</h6>
+                                   
+                                     <select name="brand" id="brand" value="{{this.brand}}"  class="form-select"  >
+                                        
+                                         {{#each brands}}
+                                       
+                                        <option value="{{this._id}}" >{{this.brand}}</option>
+                                        
+                                        {{/each}}
+                                        </select>
+                                </div>
+                                 <div class="mb-3">
+                                    
+                                    <h6>Stock</h6>
+                                    <input type="phone" name="stock" class="form-control" placeholder="Enter number of stocks" value="{{productDetails.stock}}" required="">
+                                </div>
+                                
+                                 <div class="mb-3">
+                                    <h6>Price</h6>
+                                    <input type="phone" name="price" class="form-control" placeholder="Enter product price" value="{{productDetails.price}}" required="">
+                                </div>
+                                 <div class="mb-3"> 
+                                    <h6>Image</h6>
+                                     <div class="justify-content-around d-flex">
+                                    <img   src="/images/product/{{productDetails.img.[0]}}" id="imgview" style="width: 100px; height: 100px;">
+                                     <img  src="/images/product/{{productDetails.img.[1]}}" id="imgview" style="width: 100px; height: 100px;">
+                                      <img  src="/images/product/{{productDetails.img.[2]}}" id="imgview" style="width: 100px; height: 100px;">
+                                       <img  src="/images/product/{{productDetails.img.[3]}}" id="imgview" style="width: 100px; height: 100px;">
+                                       </div>
+                                       <hr>
+                                    <span class="text-danger">If no file chosen images will be same as default !</span>
+                                    <input type="file" onchange="viewImage(event)" name="image" class="form-control" value=""  multiple >
+                                    
+                                </div> 
+                                
+                                <button type="submit"  class="btn btn-success">Submit</button>
+                            </form>  
+                </div>
+            </div>
+            <!-- Form End -->
+ 
+
+         <script>
+            function viewImage(event){
+               
+                document.getElementById('imgview').src=URL.createObjectURL(event.target.files[0])
+            }
+         </script> 

@@ -1,0 +1,265 @@
+
+<div class="container quickView-container " >
+	
+	
+	<div class="quickView-content" >
+		 
+                  
+                    <a href="/#topSellingProducts" class="btn-outline"><h6>← Back</h6></a>
+               
+		
+		 
+		<div class="row">
+			
+            <div class="col-md-6">
+                                <div class="product-gallery product-gallery-vertical">
+                                    <div class="row">
+                                        <figure class="product-main-image">
+                                            <img id="product-zoom" src="/images/product/{{product.[0].img.[0]}}"  data-zoom-image="/images/product/{{product.[0].img.[0]}}"  alt="product image">
+
+                                            <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                                <i class="icon-arrows"></i>
+                                            </a>
+                                        </figure><!-- End .product-main-image -->
+
+                                        <div id="product-zoom-gallery" class="product-image-gallery">
+                                            <a class="product-gallery-item active" href="#" data-image="/images/product/{{product.[0].img.[0]}}"  data-zoom-image="/images/product/{{product.[0].img.[0]}}" >
+                                                <img src="/images/product/{{product.[0].img.[0]}}"  alt="product side">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="#" data-image="/images/product/{{product.[0].img.[1]}}"  data-zoom-image="/images/product/{{product.[0].img.[1]}}" >
+                                                <img src="/images/product/{{product.[0].img.[1]}}"  alt="product cross">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="#" data-image="/images/product/{{product.[0].img.[2]}}"  data-zoom-image="/images/product/{{product.[0].img.[2]}}" >
+                                                <img src="/images/product/{{product.[0].img.[2]}}"  alt="product with model">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="#" data-image="/images/product/{{product.[0].img.[3]}}"  data-zoom-image="/images/product/{{product.[0].img.[3]}}" >
+                                                <img src="/images/product/{{product.[0].img.[3]}}"  alt="product back">
+                                            </a>
+                                        </div><!-- End .product-image-gallery -->
+                                    </div><!-- End .row -->
+                                </div>
+                            </div>
+
+
+		
+			 <div class="col-lg-5 col-md-6">
+				<h2 class="product-title">{{product.[0].title}}</h2>
+				<h3 class="product-price ">₹{{product.[0].offerPrice}}</h3>
+                <h6 class="old-price text-danger">₹{{product.[0].price}}</h6>
+                <h6 class="text-success">{{product.[0].brand.discount}}% OFF</h6>
+                <h6 class="text-info ">inclusive off all taxes</h6>
+
+                <div class="ratings-container">
+                    <div class="ratings">
+                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
+                    </div><!-- End .ratings -->
+                    <span class="ratings-text">( 2 Reviews )</span>
+                </div><!-- End .rating-container -->
+
+                <p class="product-txt">Brand : {{product.[0].brand.brand}}</p>
+
+
+               
+                <div class="details-filter-row details-row-size">
+	                <label for="size">Size:</label>
+	                <div class="select-custom">
+	                    <select name="size" id="size" class="form-control">
+	                        <option value="#" selected="selected">Select a size</option>
+	                        <option value="s">Small</option>
+	                        <option value="m">Medium</option>
+	                        <option value="l">Large</option>
+	                        <option value="xl">Extra Large</option>
+	                    </select>
+	                </div><!-- End .select-custom --> 
+	            </div> 
+
+	            
+                <div class="details-filter-row details-row-size">
+					 <label for="size">Quantity:</label>
+                   <button onclick="quantityChange('{{product.[0]._id}}','{{product.[0]._id}}','{{../user._id}}',-1)" style="border: none; background-color:white;"  >-</button>
+												  
+					<span id="{{product.[0]._id}}">  1</span>
+				
+					
+					
+					<button  onclick="quantityChange('{{product.[0]._id}}','{{product.[0]._id}}','{{../user._id}}',1)"  style="border: none; background-color:white;">+</button>
+                    
+                </div>
+                <h6><i class="icon-tag"></i>BEST OFFERS</h6>
+                    <ol >
+                        <li>◾Applicable on: Orders above Rs. 599 (only on first purchase)</li>
+                        <li>◾Coupon code: <span class="font-weight-bold text-dark" > GRAB50 </span> </li>
+                        <li>◾Coupon Discount: 50% off (check cart for final savings)</li>
+                    </ol>
+
+                <div class="product-details-action">
+                    <div class="details-action-wrapper">
+                        <button  onclick="addToWishlist('{{product.[0]._id}}')" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></button>
+                        <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
+                    </div><!-- End .details-action-wrapper -->
+                  
+                   {{#if product.[0].stock}}
+					<button onclick="addToCart('{{product.[0]._id}}')" class="btn-product btn-cart" style="border: ; " >Add to cart</button>
+                    {{else}}
+                    <button class="btn btn-danger">OUT OF STOCK</button>
+
+                    {{/if}}
+                     <div align="center">
+                    Stock left:{{product.[0].stock}}
+                   </div>
+                </div>
+
+                <div class="product-details-footer">
+                    <div class="product-cat">
+                        <span>Category:</span>
+                        <a href="#">Men</a>,
+                        <a href="#">Shoes</a>,
+                        <a href="#">Brown</a>
+                    </div><!-- End .product-cat -->
+					
+
+                    <div class="social-icons social-icons-sm">
+                        <span class="social-label">Share:</span>
+                        <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                        <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                        <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                        <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                    </div>
+                </div>
+				
+			</div> 
+			
+		</div>
+		
+	</div>
+    <h4 class="text-center">YOU MAY ALSO LIKE</h4>
+     <div class="row">
+                              {{#each products}}
+                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
+                                <div class="product">
+                                    <figure class="product-media">
+                                        <span class="product-label label-new">New</span>
+                                        <span class="product-label label-sale">{{this.brand.discount}}% OFF</span>
+                                        <a href="/quickview/{{this._id}}">
+                                            <img src="/images/product/{{this.img.[0]}}" alt="Product image" class="product-image">
+                                        </a>
+
+                                        <div class="product-action-vertical">
+                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                        </div><!-- End .product-action -->
+
+                                        <div class="product-action action-icon-top">
+                                            {{#if this.stock}}
+                                           <button onclick="addToCart('{{this._id}}')" class="btn-product btn-cart" style="border: none; background-color:white; " ><span>Add to cart</span></button>
+                                           {{else}}
+                                           <button class="btn btn-danger">OUT OF STOCK</button>
+                                           {{/if}}
+                                            <a href="/quickview/{{this._id}}" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
+                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
+                                        </div><!-- End .product-action -->
+                                    </figure><!-- End .product-media -->
+
+                                    <div class="product-body">
+                                        <div class="product-cat">
+                                            <a href="#">{{this.category}}</a>
+                                        </div><!-- End .product-cat -->
+                                        <h3 class="product-title"><a href="/quickview/{{this._id}}">{{this.title}}</a></h3>
+                                        <span>{{this.brand.brand}}</span>
+                                        <div class="product-price">
+                                           ₹ {{this.offerPrice}}
+                                        </div>
+                                         <div class="old-price text-danger">
+                                           ₹ {{this.price}}
+                                        </div>
+                                        <div class="ratings-container">
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                            <span class="ratings-text">( 0 Reviews )</span>
+                                        </div><!-- End .rating-container -->
+
+                                       
+                                    </div><!-- End .product-body -->
+                                </div><!-- End .product -->
+                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
+
+                           {{/each}}
+
+                         
+                                
+                         
+                        
+                        </div>
+	
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/igorlino/elevatezoom-plus/1.1.6/src/jquery.ez-plus.js"></script>
+
+
+
+
+<script>
+	function addToCart(proId){
+		$.ajax({
+			url:'/add-to-cart/'+proId,
+			method:'get',
+			success:(response)=>{ 
+                console.log(response)
+				if(response.status){
+					Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Item has been added to cart🛒',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+                    
+					 let cartCount=$('#cartcount').html()
+					 cartCount=parseInt(cartCount)+1
+                     console.log(cartCount)
+					 $('#cartcount').html(cartCount)
+				}else{
+                    window.location.href='/login'
+                }
+			} 
+		})
+	}
+  </script>
+
+  <script>
+    function addToWishlist(productId){
+        console.log(productId)
+      $.ajax({
+        url:'/add-to-wishlist/'+productId,
+        method:'get',
+        success:(response)=>{
+           if(response.status){
+             Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Item has  been added to wishlist❤️',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+           }else{
+            Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'Item already exist in wishlist!',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+            
+           }
+        }
+      })
+    }
+  </script>
+  
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

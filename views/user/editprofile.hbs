@@ -1,0 +1,20 @@
+<h2 class="text-center">Update profile</h2>
+
+<div class="text-center container w-25" >
+    <form action="/submit-profile-edit/{{userEditDetails._id}}" method="post">
+
+        <h6>Username</h6>
+        <input type="text" name="username"  placeholder="Enter username" class="form-control"  value="{{userEditDetails.username}}" required="" >
+
+        <h6>Email</h6>
+        <input type="text" name="email"  placeholder="Enter email address" class="form-control"  value="{{userEditDetails.email}}" required="" >
+
+        <h6>Phonenumber</h6>
+        <input type="text" name="phonenumber"  placeholder="Enter phone number" class="form-control"  value="{{userEditDetails.phonenumber}}" required="" >
+
+        <button type="submit" class="btn btn-dark mb-5">Update</button>
+    </form>
+
+
+
+</div>

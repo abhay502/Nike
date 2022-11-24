@@ -1,0 +1,158 @@
+
+
+            <!-- Table Start -->
+            <div class="container-fluid pt-4 px-4">
+                 <h3 class="text-center text-info">Product Management Table</h3>
+                <div class="row g-4">
+                   
+                    <div class="col-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h2 class="text-center">Product Management By Admin</h2>
+
+                            <a href="/admin/addproduct " class="btn btn-success mt-3">Add product</a>
+
+                            <div class="table-responsive mt-5">
+                                
+                                <table class="table text-dark">
+                                    <thead>
+                                        <tr class="">
+                                            <th scope="col">NUMBER</th>
+                                            <th scope="col">TITLE</th>
+                                            <th scope="col">BRAND</th>
+                                            <th>STOCK </th>
+                                            <th scope="col">PRICE</th>
+                                            <th scope="col">IMAGE</th>
+                                            
+                                            <th scope="col">ACTIONS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         {{#each product}}
+                                        <tr>
+                                           {{!-- onclick=" return confirm('Are you sure to delete {{this.title}}')" --}}
+                                            <th  scope="row">{{inc @index}}</th> 
+                                            <td  >{{this.title}}</td>
+                                            <td>{{this.brand.brand}}</td>
+                                            <td>{{this.stock}}</td>
+                                            <td>₹{{this.price}}</td>
+                                            <td class=""><img style="width:50px; height: 50px;"  src="/images/product/{{this.img.[0]}}" alt="">
+                                                <img style="width:50px; height: 50px;"  src="/images/product/{{this.img.[1]}}" alt="">
+                                                <br><hr> 
+                                                 <img style="width:50px; height: 50px;"  src="/images/product/{{this.img.[2]}}" alt="">
+                                                  <img style="width:50px; height: 50px;"  src="/images/product/{{this.img.[3]}}" alt="">
+                                                </td>
+                                            <td><a href="/admin/editproduct/{{this._id}}" class="btn btn-info">Edit</a>
+                                            <button  onclick="updateStock('{{this._id}}','{{this.title}}')" class=" btn btn-success" id="deleteBtn" style="margin-left: 7px;">Update Stock</button>
+
+                                        <button  onclick="deleteProduct('{{this._id}}','{{this.title}}')" class=" btn btn-danger" id="deleteBtn" style="margin-left: 7px;">Delete</button>
+
+                                            </td>
+                                           
+                                            
+                                        </tr>
+                                         <!-- Modal -->
+                                        <div class="modal fade" id="myModal{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Update Stock</h5>
+                                                <button type="button" class="close" onclick="closeModal('{{this._id}}')" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                               <input type="phone" id="stock{{this._id}}" name="stock" class="form-control" value="{{this.stock}}">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button onclick="closeModal('{{this._id}}')" type="button" class="btn btn-secondary" >Close</button>
+                                                <button onclick="saveChanges('{{this._id}}')"  type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                       
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Table End -->
+
+
+
+<script>
+    function saveChanges(proID){
+       let stock= document.getElementById('stock'+proID).value
+               console.log(proID,stock)
+
+        $.ajax({
+            url:'/admin/update-stock',
+            data:{proID:proID,
+            stock:stock},
+            method:'patch',
+            success:(response)=>{
+               if(response.status){
+                window.location.reload()
+               }
+            }
+        })
+    }
+</script>
+
+<script>
+    
+    function deleteProduct(productId,title){
+       
+        Swal.fire({
+  title: 'Are you sure to delete',
+  text: title,  
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#fc0303',
+  cancelButtonColor: '#03a9fc',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {  
+  if (result.isConfirmed) {
+    Swal.fire(
+        
+      'Deleted!',
+      'Your file has been deleted.',
+      'success' 
+         
+    )
+     $.ajax({
+            url:'/admin/delete-product/?productId='+productId,
+            method:'delete',
+            success:(response)=>{
+                if(response.status){
+                window.location.reload()
+                }
+            }
+        })
+  }
+})
+        
+}
+
+      
+</script>
+
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function updateStock(orderId){
+        $('#myModal'+orderId).modal('show')
+    }
+</script>
+
+<script>
+   function closeModal(orderId){
+    $('#myModal'+orderId).modal('hide');
+   }
+   
+</script>

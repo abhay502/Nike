@@ -1,0 +1,278 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="page-wrapper">
+    <header class="header header-8">
+        <div class="header-top">
+            <div class="container">
+      
+
+                <div class="header-right mt-5">
+                    <ul class="top-menu">
+                        <li>
+                            <a href="#">Links</a>
+                            <ul>
+                                <li><a href="tel:#"><i class="icon-phone"></i>Call: +91 123456789</a></li>
+
+
+                                <li><a href="/contact">Contact Us</a></li>
+
+                                {{#if user}}
+
+                                <li><a href="/userLogout"><i class="icon-user"></i>{{user.username}} Logout</a></li>
+
+
+                                {{else }}
+
+                                {{#if usernamewhenotp}}
+
+                                <li><a href="/userLogout"><i class="icon-user"></i>{{ usernamewhenotp}} Logout</a></li>
+
+                                {{else}}
+                                <li><a href="/login"><i class="icon-user"></i>Login</a></li>
+                                {{/if}}
+                                {{/if}}
+                            </ul>
+                        </li>
+                    </ul><!-- End .top-menu -->
+                </div><!-- End .header-right -->
+            </div><!-- End .container -->
+        </div><!-- End .header-top -->
+
+        <div class="header-middle sticky-header">
+            <div class="container">
+                <div class="header-left">
+                    <button class="mobile-menu-toggler">
+                        <span class="sr-only">Toggle mobile menu</span>
+                        <i class="icon-bars"></i>
+                    </button>
+
+                    {{!-- <a href="" class="logo">
+                        <img src="" width="105" height="25">
+                    </a> --}}
+                </div><!-- End .header-left -->
+
+                <div class="header-left  ">
+
+                    <nav class="navbar  ">
+
+                        <ul class="menu sf-arrows ">
+                            <a href="/"><img style="width: 100px;" src="/images/swoosh-logo-black.jpg" alt=""></a>
+                            <li class="megamenu-container  ">
+                                <a href="/" class="sf-with-ul">Home</a>
+
+                            </li>
+                            <li>
+                                <a href="/#topSellingProducts" class="sf-with-ul">Shop</a>
+
+
+                            </li>
+                            <li>
+                                <a href="/about" class="sf-with-ul">about</a>
+
+
+                            </li>
+                            <li>
+                                <a href="/allproducts" class="sf-with-ul">🛒All Products</a>
+
+
+                            </li>
+                            <li>
+                                {{#if user}}
+                                <a href="/myorders" class="sf-with-ul">📩My orders</a>
+                                {{/if}}
+
+                            </li>
+                            <li>
+                                {{#if user}}
+                                <a href="/myaccount" class="sf-with-ul">👤MyAccount</a>
+                                {{/if}}
+
+                            </li>
+                            <li>
+                                {{#if user}}
+                                <a href="/wishlist" class="sf-with-ul">❤️My Wishlist <span>(3)</span></a>
+                                {{/if}}
+
+                            </li>
+                        </ul><!-- End .menu -->
+                    </nav><!-- End .main-nav -->
+
+
+
+
+
+
+                </div>
+                <div class="header-right  ">
+
+                    <div class="header-search">
+
+                    </div><!-- End .header-search -->
+
+                    <div class="dropdown cart-dropdown">
+                        <a href="/cart" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false"
+                            data-display="static">
+                            <i class="icon-shopping-cart"></i>
+                            {{#if user}}
+                            <span class="cart-count" id="cartcount">{{cartCount}}</span>
+                            {{/if}}
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            
+          
+        <div style="margin-left: 74.5%; margin-top:-10px;" class="mb-2 ">
+      
+        <label for="q" class="sr-only">Search</label>
+        <input type="text" class="  rounded " name="q" id="q" onkeyup="search(this)" placeholder="Search Products....." required="">
+        <button type="submit" class=" btn-primary"><i class="icon-search" ></i></button>
+        <div id="searchResults"  >
+
+        </div>
+        
+         
+        
+    </div>
+
+
+        </div>   
+    </header>
+
+    {{{body}}}
+
+    <footer class="footer footer-dark">
+
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget widget-about">
+                            <img src="/images/just-do-it-nike-700x486.jpg" class="footer-logo" alt="Footer Logo"
+                                width="105" height="25">
+                            <p>FIND A STORE
+                                BECOME A MEMBER
+                                SIGN UP FOR EMAIL
+                                SEND US FEEDBACK
+                                STUDENT DISCOUNTS </p>
+
+                            <div class="social-icons">
+                                <a href="#" class="social-icon" title="Facebook" target="_blank"><i
+                                        class="icon-facebook-f"></i></a>
+                                <a href="#" class="social-icon" title="Twitter" target="_blank"><i
+                                        class="icon-twitter"></i></a>
+                                <a href="#" class="social-icon" title="Instagram" target="_blank"><i
+                                        class="icon-instagram"></i></a>
+                                <a href="#" class="social-icon" title="Youtube" target="_blank"><i
+                                        class="icon-youtube"></i></a>
+                                <a href="#" class="social-icon" title="Pinterest" target="_blank"><i
+                                        class="icon-pinterest"></i></a>
+                            </div><!-- End .soial-icons -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="/about">About Nike</a></li>
+                                <li><a href="#">How to shop on Nike</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                                <li><a href="/contact">Contact us</a></li>
+                                <li><a href="/login">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="#">Payment Methods</a></li>
+                                <li><a href="#">Money-back guarantee!</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="#">Sign In</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2022 Nike Store. All Rights Reserved.</p>
+                <!-- End .footer-copyright -->
+                <figure class="footer-payments">
+                    <img src="/assets/images/payments.png" alt="Payment methods" width="272" height="20">
+                </figure><!-- End .footer-payments -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+</div><!-- End .page-wrapper -->
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<!-- Mobile Menu -->
+
+
+<script>
+    function search(e){
+        const searchResults=document.getElementById('searchResults')
+        let match=e.value.match(/^[a-zA-Z]*/);
+        let match2=e.value.match(/\s*/);
+        if(match2[0]===e.value){
+            searchResults.innerhtml='';
+            return;
+        }
+        if(match[0]===e.value){
+
+             fetch('getProducts',{
+            method:'post',
+            headers:{'Content-type':'application/json'},
+            body:JSON.stringify({payload:e.value})
+        }).then(res=>res.json()).then(data=>{
+            let payload=data.payload
+            searchResults.innerHTML='';
+            if(payload.length<1){
+                searchResults.innerHTML='<p>Sorry nothing found ! 🥲</p>';
+                return;
+            }
+            payload.forEach((item,index)=>{
+                if(index>0)searchResults.innerHTML+='<hr>'
+                searchResults.innerHTML+=`<a  href="/quickview/${item._id}">${item.title}</a>`
+                searchResults.innerHTML+=`<img style="width:30px; margin-left:-50px;margin-top:-40px;"  src="/images/product/${item.img[0]}"></img>`
+                
+            })
+            return;
+        })
+
+
+
+        }
+       
+    }  
+</script>

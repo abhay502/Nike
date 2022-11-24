@@ -1,0 +1,445 @@
+<main class="main">
+
+	<nav aria-label="breadcrumb" class="breadcrumb-nav">
+		<div class="container">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item"><a href="/">Shop</a></li>
+				<li class="breadcrumb-item"><a href="/cart">Cart</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Checkout</li>
+			</ol>
+		</div>
+	</nav>
+
+	<div class="page-content">
+		<div class="checkout">
+			<div class="container">
+
+				<div class="card" style="width: 40rem;">
+					<div class="card-body">
+						<h5 class="card-title">Choose a Shipping Address</h5>
+						{{#each address}}
+
+						<p class="text-dark">Name: {{this.firstname}} </p>
+						<p class="text-dark">Address: {{this.address}} </p>
+						<p class="text-dark">Town: {{this.town}} </p>
+						<p class="text-dark">State: {{this.state}} </p>
+						<p class="text-dark">PIN: {{this.pin}} </p>
+						<p class="text-dark">Phone: {{this.phone}} </p>
+						<p class="text-dark">Email: {{this.email}} </p>
+
+
+
+						<button
+							onclick="useThis('{{this.firstname}}','{{this.address}}','{{this.town}}','{{this.state}}','{{this.pin}}','{{this.phone}}','{{this.email}}')"
+							class="btn btn-dark">Use this</button>
+						<a href="/myaccount#tab-address" class="btn btn-dark">Use another</a>
+						{{/each}}
+
+					</div>
+				</div>
+
+				<div class="cart-discount" style=" margin-left:71%">
+					<h6 class="text-success" ><span id="couponapplied"></span> </h6>
+                                         
+
+					<form id="coupon-form">
+						<div class="input-group">
+							{{#if discountedPrice}}
+							<input type="text" name="coupon" class="form-control" required placeholder="{{couponname}}">
+								
+							{{else}}
+							<input type="text" name="coupon" class="form-control" required placeholder="coupon code">
+							{{/if}}
+							<div class="input-group-append" id="removebtn">
+								{{#if discountedPrice}}
+								<a href="/remove-coupon/{{couponname}}" class="badge badge-danger badge ">Remove coupon</a>
+										{{else}}
+										<button class="btn btn-outline-primary-2" type="submit"><i
+										class="icon-long-arrow-right"></i></button>
+										{{/if}}
+							</div>
+						</div>
+						<h5 id="coupn-err" class="text-danger"></h5>
+						 {{#if discountedPrice}}
+											<h6 class="text-success"  >Coupon has been successfully Applied! </h6>
+											{{/if}}
+
+					</form>
+
+				</div>
+ 
+				<form action="" id="checkout-form">
+
+					<div class="row">
+						<div class="col-lg-9">
+							<h2 class="checkout-title">
+								<h4>Shipping Details</h4>
+							</h2><!-- End .checkout-title -->
+							<div class="row">
+								<div class="col-sm-6">
+									<h6>First Name *</h6>
+									<input id="firstname" type="text" name="firstname" class="form-control"
+										placeholder="First name" required>
+								</div><!-- End .col-sm-6 -->
+
+
+							</div><!-- End .row -->
+
+							<h6>Company Name (Optional)</h6>
+							<input type="text" name="companyname" class="form-control" placeholder="Company name">
+
+
+
+							<h6>Street address *</h6>
+							<input type="text" id="address" name="address" class="form-control"
+								placeholder="House number and Street name" required>
+
+							<div class="row">
+								<div class="col-sm-6">
+									<h6>Town / City *</h6>
+									<input type="text" id="town" name="town" class="form-control"
+										placeholder="Town/city" required>
+								</div><!-- End .col-sm-6 -->
+
+								<div class="col-sm-6">
+									<h6>State *</h6>
+									<input type="text" id="state" name="state" class="form-control"
+										placeholder="State/country" required>
+								</div><!-- End .col-sm-6 -->
+							</div><!-- End .row -->
+
+							<div class="row">
+								<div class="col-sm-6">
+									<h6>Postcode / ZIP *</h6>
+									<input type="text" id="pin" name="pin" class="form-control"
+										placeholder="Postcode/ZIP" required>
+								</div><!-- End .col-sm-6 -->
+
+								<div class="col-sm-6">
+									<h6>Phone number *</h6>
+									<input type="tel" id="phone" name="phone" class="form-control"
+										placeholder="Phone number" required>
+								</div><!-- End .col-sm-6 -->
+							</div><!-- End .row -->
+
+							<h6>Email address *</h6>
+							<input type="email" id="email" name="email" class="form-control" placeholder="Email address"
+								required>
+
+							<input type="text" name="userId" value="{{user._id}}" hidden>
+
+
+						</div><!-- End .col-lg-9 -->
+
+						<aside class="col-lg-3">
+
+							<div class="summary">
+								<h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+
+								<table class="table table-summary">
+									<thead>
+										<tr>
+											<th class="">Product</th>
+											<th>Total</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										{{#each products}}
+
+										<tr>
+
+											<td><a href="#" id="qty{{this.quantity}}">
+													<h6> {{this.product.title}}<img style="width: 70px; "
+															src="/images/product/{{this.product.img.[0]}}"
+															alt="Product image"> </h6>(Price: {{this.product.price}})
+													(Qty: {{this.quantity}})
+												</a></td>
+											<td>
+												<h6>₹{{this.quantityTotal}}</h6>
+											</td>
+
+
+										</tr>
+
+										{{/each}}
+										<tr class="summary-subtotal">
+											<td>Subtotal:</td>
+											<td>
+												<h3>₹<span id="total">{{subtotal}}</span></h3>
+											</td>
+
+										</tr><!-- End .summary-subtotal -->
+										<tr>
+											<td>Shipping:</td>
+											<td>Free shipping</td>
+										</tr>
+										<tr class="summary-total">
+											
+											
+										</tr>
+										<tr class="summary-total">
+											
+											<td>Total:</td>
+											<td  class="amount fw-bold text-danger">₹{{subtotal}}/-</td>
+										</tr>
+										<tr class="summary-total">
+											{{#if discountedPrice}}
+											
+											<td  class="amount fw-bold text-success">Coupon : {{couponname}}</td>
+											{{else}}
+											
+											<td id="couponname" class="amount fw-bold text-success">{{couponname}}</td>
+
+											{{/if}}
+											
+										</tr>
+
+										<tr class="summary-total">
+											<td>DiscountAmount:</td>
+											{{#if discountedPrice}}
+											
+											<td><span id="discountgot">{{discountedPrice}}/-OFF</span> </td>
+											{{else}}
+                                            <td><span id="discountgot">No coupon applied</span> </td>
+											{{/if}}
+
+										</tr>
+
+										<tr class="summary-total">
+											<td>
+												<h4>AmountPayable:</h6>
+											</td>
+											<td>
+												<h5><span id="grandtotal" name="amountPayable"
+														class="text-success">₹{{finalAmount}}/-</span> </h5>
+											</td>
+										</tr>
+
+
+									</tbody>
+
+								</table><!-- End .table table-summary -->
+
+								<div class="accordion-summary" id="accordion-payment">
+									<div class="card">
+										<div class="card-header" id="heading-1">
+											<h2 class="card-title">
+												<input type="radio" name="payment-method" id="" value="cod"
+													required><span class="h6 font-weight-bold ml-2">Cash on
+													delivery</span>
+											</h2>
+										</div><!-- End .card-header -->
+										<div id="collapse-1" class="collapse show" aria-labelledby="heading-1"
+											data-parent="#accordion-payment">
+
+										</div><!-- End .collapse -->
+									</div><!-- End .card -->
+
+
+
+
+									<div class="card">
+										<div class="card-header" id="heading-4">
+											<h2 class="card-title">
+												<input type="radio" name="payment-method" value="razorpay"
+													required><span class="h6 font-weight-bold ml-2">Razor Pay</span>
+											</h2>
+										</div><!-- End .card-header -->
+										<div id="collapse-2" class="collapse" aria-labelledby="heading-4"
+											data-parent="#accordion-payment">
+
+										</div><!-- End .collapse -->
+									</div><!-- End .card -->
+
+									<div class="card">
+										<div class="card-header" id="heading-5">
+											<h2 class="card-title">
+												<input type="radio" name="payment-method" id="" value="paypal"
+													required><span class="h6 font-weight-bold ml-2">Paypal</span>
+											</h2>
+										</div><!-- End .card-header -->
+										<div id="collapse-3" class="collapse" aria-labelledby="heading-5"
+											data-parent="#accordion-payment">
+
+										</div><!-- End .collapse -->
+									</div><!-- End .card -->
+									<img src="assets/images/payments-summary.png" alt="payments cards">
+
+								</div><!-- End .accordion -->
+
+
+								<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+									<span class="btn-text">Place Order</span>
+									<span class="btn-hover-text">Proceed to Checkout</span>
+								</button>
+
+
+							</div>
+						</aside>
+					</div>
+
+
+
+
+
+				</form>
+
+
+
+
+
+
+			</div><!-- End .container -->
+
+		</div><!-- End .checkout -->
+	</div><!-- End .page-content -->
+</main><!-- End .main -->
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+	$('#coupon-form').submit((e) => {
+		e.preventDefault()
+
+		$.ajax({ 
+			url: '/couponSubmit',
+			method: 'post',
+			data: $('#coupon-form').serialize(),
+			success: (response) => {
+				var err = document.getElementById('coupn-err')
+				if (response.invalid) { 
+					err.innerHTML = "Enter a valid Coupon!"
+				} else if (response.dateExpired) {
+					err.innerHTML = "Coupon has expired "
+				} else if (response.used) {
+					err.innerHTML =  "You have already used this coupon!"
+				} else {
+					err.innerHTML = "<h6 style='color:green'> Coupon has been successfully Applied! </h6>"
+					
+					Swal.fire({
+						position: 'center', 
+						icon: 'success',
+						title: 'Coupon has been successfully Applied!',
+						showConfirmButton: false,
+
+						timer: 1500
+					})
+
+
+					console.log(response.a)
+					 console.log(response.a.coupon)
+					response.finalAmount = parseInt(response.finalAmount)
+					response.discountedprice = parseInt(response.discountedprice)
+					document.getElementById('couponname').innerHTML= 'Coupon : ' + response.a.coupon
+					document.getElementById('discountgot').innerHTML = '₹' + response.discountedprice + '/-OFF'
+
+
+					document.getElementById('grandtotal').innerHTML = "₹" + response.finalAmount
+					
+					console.log(response.finalAmount)
+					document.getElementById('couponId').innerHTML = response.a + "%"
+					document.getElementById('coupnRw').style = "display:block !important "
+					let subtotal = document.getElementById('total').innerHTML
+					console.log(subtotal)
+					document.getElementById('discountgot').innerHTML = '₹' + (subtotal - response.finalAmount)
+					 
+					 console.log(response.a.coupon)
+					
+					
+
+				}
+			}
+
+		})
+	})
+</script>
+<script>
+	$('#checkout-form').submit((e) => {
+		e.preventDefault()
+		$.ajax({
+			url: '/place-order',
+			method: 'post',
+			data: $('#checkout-form').serialize(),
+			success: (response) => {
+				alert(response)
+				if (response.codSuccess) {
+					location.href = '/orderplaced'
+				} else {
+					razorpayPayment(response)
+				}
+			}
+		})
+	})
+
+	function razorpayPayment(order) {
+		console.log(order.amount)
+		var options = {
+
+			"key": 'rzp_test_EoZvNOJuFZ9rJl', // Enter the Key ID generated from the Dashboard
+			"amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+			"currency": "INR",
+			"name": "Nike Store Online",
+			"description": "Test Transaction",
+			"image":"data:image/png;base64,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",
+			"order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+			"handler": function (response) {
+
+
+				verifyPayment(response, order)
+
+			},
+			"callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+			"prefill": {
+				"name": "Gaurav Kumar",
+				"email": "gaurav.kumar@example.com",
+				"contact": "9999999999"
+			},
+			"notes": {
+				"address": "Razorpay Corporate Office"
+			},
+			"theme": {
+				"color": "#3399cc"
+			}
+		};
+		var rzp1 = new Razorpay(options);
+		rzp1.open();
+	}
+	function verifyPayment(payment, order) {
+		$.ajax({
+			url: '/verify-payment',
+			data: {
+				payment,
+				order
+			},
+			method: 'post',
+			success: (response) => {
+				if (response.status) {
+					alert('Alert payment Successfully')
+					location.href = '/orderplaced'
+				} else {
+					alert("Payment Failed")
+				}
+			}
+		})
+	}
+</script>
+
+<script>
+	function useThis(firstname, address, town, state, pin, phone, email) {
+
+		document.getElementById('firstname').value = firstname
+		document.getElementById('address').value = address
+		document.getElementById('town').value = town
+		document.getElementById('state').value = state
+		document.getElementById('pin').value = pin
+
+		document.getElementById('phone').value = phone
+		document.getElementById('email').value = email
+
+
+
+
+	}
+</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

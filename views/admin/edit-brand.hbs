@@ -1,0 +1,41 @@
+
+
+
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h3 class="mb-4">Edit Brand Page</h3>
+                            <form   action="/admin/edit-brand/{{brandDetails._id}}"  method="post" enctype="multipart/form-data"> 
+                                <div class="mb-3">
+                                    <h6>Brand Name</h6>
+                                    <input type="text" name="brand"  placeholder="Enter product title" class="form-control"  value="{{brandDetails.brand}}" required="" >
+                                                                                                      
+                                    
+                                </div>
+                               
+                                 
+                                 <div class="mb-3">
+                                    <h6>Thumbnail</h6>
+                                   
+                                    <img   src="/images/brand/{{brandDetails.img.[0]}}" id="imgview" style="width: 100px; ">
+                                     
+                                      
+                                       <hr>
+                                    
+                                    <input type="file" onchange="viewImage(event)" name="image" class="form-control" value="/images/brand/{{brandDetails.img.[0]}}"  multiple="multiple" required="">
+                                </div>
+                                <button type="submit"  class="btn btn-success">Submit</button>
+                            </form>  
+                </div>
+            </div>
+            <!-- Form End -->
+ 
+
+         <script>
+            function viewImage(event){
+               
+                document.getElementById('imgview').src=URL.createObjectURL(event.target.files[0])
+            }
+         </script> 

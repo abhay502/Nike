@@ -1,0 +1,45 @@
+
+
+
+            <!-- Form Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h3 class="mb-4">Add Coupon Page</h3>
+                                                     <a href="/admin/allcoupons" class="btn btn-info " style="margin-left: 70%;">View all coupons</a>
+
+
+
+                            
+
+                            <form   action="/admin/addcoupon"  method="post" > 
+                                <div class="mb-3">
+                                    <h6>Coupon Code</h6>
+                                    <input type="text" name="coupon" class="form-control" placeholder="Enter Coupon code" required="" >
+                                                                                                      
+                                     
+                                </div> 
+                                
+                                
+                                
+                                <div class="mb-3">
+                                    <h6>Discount</h6>
+                                    <input type="number" name="discount" class="form-control" placeholder="Enter Discount" required="">
+                                </div>
+                                 <div class="mb-3">
+                                    <h6>Expiry Date</h6>
+                                    <input type="date" class="form-control" name="date">
+                                </div>
+                                 
+                                <button type="submit"  class="btn btn-success">Submit</button>
+                            </form>  
+                </div>
+            </div>
+            <!-- Form End -->
+
+
+          
+
+
+          

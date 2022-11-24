@@ -1,0 +1,32 @@
+  <h2>All coupons</h2>
+            <table class="table table-hover" id="myTable">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Coupon Code</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Expiry Date</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {{#each coupons}}
+                  <tr>
+                    <td>{{inc @index}}</td>
+                    <td class="tm-product-name">{{this.coupon}}</td>
+                    <td>{{this.discount}}</td>
+                    <td>{{this.date}}</td>
+                   
+                    
+                    <td>
+
+                      <a href="/admin/delete-coupon/{{this._id}}" class="btn btn-outline-danger text-uppercase" >
+                            Delete
+                        </a>
+                    </td>
+                  
+                   
+                </tr>
+                {{/each}}
+                </tbody>
+              </table>

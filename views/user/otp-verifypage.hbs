@@ -1,0 +1,63 @@
+
+
+            <div class="login-page bg-image pt-9 pb-9 pt-md-15 pb-md-15 pt-lg-19 pb-lg-19" style="background-image: url('assets/images/backgrounds/login-bg.jpg')">
+            	<div class="container">
+            		
+            			<div class="form-box">
+						<h1 class="text-center" >OTP VERIFY</h1>
+            			<div class="form-tab">
+	            			<ul class="nav nav-pills nav-fill" role="tablist">
+							    <li class="nav-item">
+							        <a class="nav-link active " id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">Login</a>
+							    </li>
+							   
+							</ul>
+							
+                            
+                            <div class="tab-content">
+							    <div class="tab-pane fade show active" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+							    	
+                                    
+                                    
+                                    <form action="/otpverify" method="post">
+							    		<div class="form-group">
+											{{#if mobnumbernotexist}}
+											<h3 class="text-center text-danger">Mobile number not exist  </h3>
+											{{/if}}
+											{{#if otpinvalid}}
+											<h3 class="text-center text-danger">OTP is invalid  </h3>
+											{{/if}}
+											
+							    			
+							    		<div class="form-group">
+											
+                                            
+							    			<h6> OTP has been send to {{number}} </h6>
+                                           
+							    			<input type="text" class="form-control"  name="otpnumber" placeholder="Enter your 4 digit OTP" required>
+							    		</div><!-- End .form-group -->
+
+							    		<div class="form-footer">
+							    			<button type="submit" class="btn btn-outline-primary-2">
+			                					<span>Verify</span>
+			            						<i class="icon-long-arrow-right"></i>
+			                				</button>
+
+			                				
+							    	</form>
+							    	<div class="form-choice">
+								   
+							    	</div><!-- End .form-choice -->
+							    </div><!-- .End .tab-pane -->
+                                
+							   
+							    	
+							</div><!-- End .tab-content -->
+						</div><!-- End .form-tab -->
+            		</div><!-- End .form-box -->
+            		</div><!-- End .form-box -->
+            	</div><!-- End .container -->
+            </div><!-- End .login-page section-bg -->
+        </main><!-- End .main -->
+
+       

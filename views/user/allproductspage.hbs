@@ -1,0 +1,155 @@
+
+        <main class="main">
+     
+           
+
+            <div class="page-content">
+                <div class="container-fluid">
+        			<div class="toolbox">
+        				<div class="toolbox-left">
+                            <a href="#" class="sidebar-toggler"><i class="icon-bars"></i>Filters</a>
+        				</div><!-- End .toolbox-left -->
+
+                        <div class="toolbox-center">
+                            <div class="toolbox-info">
+                                Showing <span>1 of 56</span> Products
+                            </div><!-- End .toolbox-info -->
+                        </div><!-- End .toolbox-center -->
+
+        				<div class="toolbox-right">
+        					<div class="toolbox-sort">
+        						<label for="sortby">Sort by:</label>
+        						<div class="select-custom">
+									<select name="sortby" id="sortby" class="form-control">
+										<option value="popularity" selected="selected">Most Popular</option>
+										<option value="rating">Most Rated</option>
+										<option value="date">Date</option>
+									</select>
+								</div>
+        					</div><!-- End .toolbox-sort -->
+        				</div><!-- End .toolbox-right -->
+        			</div><!-- End .toolbox -->
+
+
+
+
+
+
+                     
+                     <div class="products">
+                        
+                        <div class="row">
+                              {{#each product}}
+                            <div class="col-6 col-md-4 col-lg-4 col-xl-3 col-xxl-2">
+                                <div class="product">
+                                    <figure class="product-media">
+                                        <span class="product-label label-new">New</span>
+                                        <span class="product-label label-sale">{{this.brand.discount}}% OFF</span>
+                                        <a href="/quickview/{{this._id}}">
+                                            <img src="/images/product/{{this.img.[0]}}" alt="Product image" class="product-image">
+                                        </a>
+
+                                        <div class="product-action-vertical">
+                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                        </div><!-- End .product-action -->
+
+                                        <div class="product-action action-icon-top">
+                                            {{#if this.stock}}
+                                           <button onclick="addToCart('{{this._id}}')" class="btn-product btn-cart" style="border: none; background-color:white; " ><span>Add to cart</span></button>
+                                           {{else}}
+                                           <button class="btn btn-danger">OUT OF STOCK</button>
+                                           {{/if}}
+                                            <a href="/quickview/{{this._id}}" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>
+                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>compare</span></a>
+                                        </div><!-- End .product-action -->
+                                    </figure><!-- End .product-media -->
+
+                                    <div class="product-body">
+                                        <div class="product-cat">
+                                            <a href="#">{{this.category}}</a>
+                                        </div><!-- End .product-cat -->
+                                        <h3 class="product-title"><a href="/quickview/{{this._id}}">{{this.title}}</a></h3>
+                                        <span>{{this.brand.brand}}</span>
+                                        <div class="product-price">
+                                           ₹ {{this.offerPrice}}
+                                        </div>
+                                         <div class="old-price text-danger">
+                                           ₹ {{this.price}}
+                                        </div>
+                                        <div class="ratings-container">
+                                            <div class="ratings">
+                                                <div class="ratings-val" style="width: 0%;"></div><!-- End .ratings-val -->
+                                            </div><!-- End .ratings -->
+                                            <span class="ratings-text">( 0 Reviews )</span>
+                                        </div><!-- End .rating-container -->
+
+                                       
+                                    </div><!-- End .product-body -->
+                                </div><!-- End .product -->
+                            </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
+
+                           {{/each}}
+
+                         
+                                
+                         
+                        
+                        </div><!-- End .row -->
+
+                        <div class="load-more-container text-center">
+                            <a href="#" class="btn btn-outline-darker btn-load-more">More Products <i class="icon-refresh"></i></a>
+                        </div><!-- End .load-more-container -->
+                    </div><!-- End .products -->
+                </div>
+            </div>
+        </main>
+        
+                   
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/wNumb.js"></script>
+    <script src="assets/js/bootstrap-input-spinner.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/nouislider.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+
+<!-- molla/category-fullwidth.html  22 Nov 2019 10:03:02 GMT -->
+</html>
+
+ <script>
+	function addToCart(proId){
+		$.ajax({
+			url:'/add-to-cart/'+proId,
+			method:'get',
+			success:(response)=>{ 
+                console.log(response)
+				if(response.status){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Item has been added to cart🛒',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+                    
+					 let cartCount=$('#cartcount').html()
+					 cartCount=parseInt(cartCount)+1
+                     console.log(cartCount)
+					 $('#cartcount').html(cartCount)
+				}
+			} 
+		})
+	}
+  </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

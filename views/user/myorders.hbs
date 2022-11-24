@@ -1,0 +1,210 @@
+{{#if ordereDetails}}
+<table class="table table-hover ">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Price</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Discount Price</th>
+      <th scope="col">Sub-TotalAmount</th>
+      <th scope="col">Payment-Method</th>
+      <th scope="col">Status</th>
+      <th scope="col">Date</th>
+
+    </tr>
+  </thead>
+  <tbody>
+     {{#each ordereDetails}}
+
+                            <tr>
+
+
+                                <td><img style="width: 65px; margin-top:-30px "
+                                        src="/images/product/{{this.product.img.[0]}}" alt="Product image"></td>
+                                <td>
+                                    <a href="/quickview/{{this.product._id}}">
+                                        <h6>{{this.product.title}}</h6>
+                                </td></a>
+                                <td>
+                                    <h6>{{this.brand.brand}}</h6>
+                                </td>
+                                <td>
+                                    <h6>₹{{this.product.price}}</h6>
+                                </td>
+                                <td>
+                                    <h6>({{this.quantity}})</h6>
+                                </td>
+                                 <td>
+                                    <h6>₹{{this.offerPrice}}</h6>
+                                </td>
+
+                                <td>
+                                    <h6>₹{{this.quantityTotalAfterOffer}}</h6>
+                                </td>
+
+
+                                <td>
+                                    <h6>{{this.paymentMethod}}</h6>
+                                </td>
+                                <td>
+                                    <h6>{{this.status}}</h6>
+                                </td>
+                                <td>
+                                    <h6>{{this.date}}</h6>
+                                </td>
+
+                                {{#if_eq this.status 'Delivered'}}
+
+                                <td><button class="btn btn-info text-white" onclick="returnOrder('{{this._id}}')"
+                                        href="/return/{{this._id}}">Return</button></td>
+                                {{else}}
+                                {{#if_eq this.status 'order-cancelled'}}
+                                <td><a class="btn btn-danger text-white" href="/quickview/{{this.product._id}}">View
+                                        cancelled</a></td>
+                                {{else}}
+                                {{#if_eq this.status 'Return requested' }}
+                                <td><a class="btn btn-secondary text-white"
+                                        href="/quickview/{{this.product._id}}">Return requested!</a></td>
+
+                                {{else}}
+                                <td><a class="btn btn-warning text-white" href="/cancel-item/{{this._id}}">Cancel</a>
+                                </td>
+                                {{/if_eq}}
+                                {{/if_eq}}
+                                {{/if_eq}}
+
+
+
+                            </tr>
+                            <div class="modal fade" id="myModal{{this._id}}" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Are you sure to return
+                                                this Order?</h5>
+                                            <button type="button" class="close" onclick="closeModal('{{this._id}}')"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <span>Select a reason to return</span>
+                                        <div class="modal-body">
+
+                                            <select class="form-select" aria-label="Default select example"
+                                                name="status" id="dropDown{{this._id}}">
+
+                                                {{!-- <option value="{{this.status}}">{{this.status}}</option> --}}
+                                                <option value="poor quality">Poor quality</option>
+                                                <option value="want another one">Want another one</option>
+                                                <option value="my mind change">My mind change</option>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button onclick="closeModal('{{this._id}}')" type="button"
+                                                class="btn btn-secondary">Close</button>
+                                            <button onclick="saveChanges('{{this._id}}',)" type="button"
+                                                class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {{/each}}
+   
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{else}}
+<h1 class="text-center">Your order history Is Empty.</h1>
+<div class="text-center">
+    <a href="/" class="btn btn-dark">Shop Now</a>
+</div>
+{{/if}}
+<script>
+    function cancelOrder(orderId) {
+        console.log(orderId)
+        $.ajax({
+            url: '/cancel-order/',
+
+            data: orderId,
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    window.location.reload()
+                }
+            }
+
+        })
+    }
+</script>
+
+<script>
+    function returnOrder(orderId) {
+        $('#myModal' + orderId).modal('show')
+    }
+</script>
+
+<script>
+    function closeModal(orderId) {
+        $('#myModal' + orderId).modal('hide');
+    }
+
+</script>
+
+<script>
+    function saveChanges(orderId) {
+        let reason = document.getElementById('dropDown' + orderId).value
+        console.log(reason)
+        console.log(orderId)
+
+        $.ajax({
+            url: '/returnOrder/',
+            data: { orderId: orderId, reason: reason },
+            method: 'patch',
+            success: (response) => {
+                if (response.status) {
+                    window.location.reload()
+                }
+
+
+            }
+        })
+
+
+
+
+    }
+</script>

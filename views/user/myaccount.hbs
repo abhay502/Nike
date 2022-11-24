@@ -1,0 +1,177 @@
+
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">My Account<span>Shopcart</span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        
+                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+
+
+
+
+
+
+
+
+            <div class="page-content">
+            	<div class="dashboard">
+	                <div class="container">
+	                	<div class="row">
+	                		<aside class="col-md-4 col-lg-3">
+	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+								    <li class="nav-item">
+								       <h6> </h6> <a class="nav-link active " id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">My profile</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+								    </li>
+								   
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" href="#">Sign Out</a>
+								    </li>
+								</ul>
+	                		</aside><!-- End .col-lg-3 -->
+
+	                		<div class="col-md-8 col-lg-9">
+	                			<div class="tab-content">
+								    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+								    	<h5>Hello <span >{{user.username}}</span> (not <span >{{user.username}}</span>? <a href="/userLogout">Log out</a>) 
+								    	<br>
+								    	
+										From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.</p>
+										
+										<h1>My profile</h1>
+										<h5>Profile Details</h5>
+                                        <h6>Username: <span class="ml-5 text-secondary"> {{user.username}}</span> </h6>
+										<h6>Email: <span class="ml-5 text-secondary"> {{user.email}}</span> </h6>
+										<h6>Mobile number: <span class="ml-5 text-secondary"> {{user.phonenumber}}</span> </h6>
+										<a href="/edit-profile/{{user._id}}"  class="btn btn-dark ">Edit Profile</a>
+
+
+
+
+
+
+
+
+
+								    </div><!-- .End .tab-pane -->
+
+								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+								    	<p>Click here to view your recent Orders</p>
+								    	
+										<a href="/myorders" class="btn btn-outline-primary-2"><span>MY ORDERS</span><i class="icon-long-arrow-right"></i></a>
+								    </div><!-- .End .tab-pane -->
+
+								      
+
+
+
+
+								    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+								    	<h6>The following addresses will be used on the checkout page by default.</h6>
+
+								    
+								    				<form action="/addresssubmit" method="post">
+
+														<div class="row">
+															<div class="col-lg-9">
+																<h2 class="checkout-title"><h4>Billing Details</h4></h2><!-- End .checkout-title -->
+																	<div class="row">
+																	<div class="col-sm-6">
+																		<h6>First Name *</h6>
+																		<input type="text" name="firstname" class="form-control" placeholder="First name" required>
+																	</div><!-- End .col-sm-6 -->
+
+																
+																</div><!-- End .row -->
+
+																<h6>Company Name (Optional)</h6>
+																<input type="text" name="companyname" class="form-control" placeholder="Company name">
+
+																
+
+																<h6>Street address *</h6>
+																<input type="text" name="address" class="form-control" placeholder="House number and Street name" required>
+																
+																<div class="row">
+																	<div class="col-sm-6">
+																		<h6>Town / City *</h6>
+																		<input type="text" name="town" class="form-control" placeholder="Town/city" required>
+																	</div><!-- End .col-sm-6 -->
+
+																	<div class="col-sm-6">
+																		<h6>State *</h6>
+																		<input type="text" name="state" class="form-control" placeholder="State/country" required>
+																	</div><!-- End .col-sm-6 -->
+																</div><!-- End .row -->
+
+																<div class="row">
+																	<div class="col-sm-6">
+																		<h6>Postcode / ZIP *</h6>
+																		<input type="text" name="pin" class="form-control" placeholder="Postcode/ZIP" required>
+																	</div><!-- End .col-sm-6 -->
+
+																	<div class="col-sm-6">
+																		<h6>Phone number *</h6>
+																		<input type="tel" name="phone" class="form-control" placeholder="Phone number" required>
+																	</div><!-- End .col-sm-6 -->
+																</div><!-- End .row -->
+
+																<h6>Email address *</h6>
+																<input type="email" name="email" class="form-control" placeholder="Email address" required>
+
+																<input type="text" name="userId" value="{{user._id}}" hidden>
+														       
+															   <button type="submit" class="btn btn-dark">SUBMIT</button>
+															
+																	</div><!-- End .col-lg-9 -->
+																	
+																</div><!-- End .row -->
+
+
+			                                    	</form>
+								    	
+								    		
+								    	</div><!-- End .row -->
+								    </div><!-- .End .tab-pane -->
+
+								    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+								    	
+										
+
+
+
+
+
+
+
+
+
+
+								    </div><!-- .End .tab-pane -->
+								</div>
+	                		</div><!-- End .col-lg-9 -->
+	                	</div><!-- End .row -->
+	                </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        

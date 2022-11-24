@@ -1,0 +1,157 @@
+
+
+            <!-- Table Start -->
+            <div class="container-fluid pt-4 px-4">
+                 <h3 class="text-center text-info">Category Management Table</h3>
+                <div class="row g-4">
+                   
+                    <div class="col-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h2 class="text-center">Category Management By Admin</h2>
+
+                            <a href="/admin/add-brand " class="btn btn-primary mt-3">Add new brand</a>
+
+                            <div class="table-responsive mt-5">
+                                
+                                <table class="table text-dark">
+                                    <thead>
+                                        <tr class="">
+                                            <th scope="col">NO</th>
+                                            <th scope="col">BRAND NAME</th>
+                                            <th scope="col">THUMBNAILS </th>
+                                            <th scope="col">ACTIONS</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         {{#each brands}}
+                                        <tr>
+                                           {{!-- onclick=" return confirm('Are you sure to delete {{this.title}}')" --}}
+                                             <th  scope="row">{{inc @index}}</th> 
+                                            <td  >{{this.brand}}</td>
+                                            <td><img style="width:60px; "  src="/images/brand/{{this.img.[0]}}" alt=""></td>
+                                           
+                                           
+                                           
+                                        <td>
+                                        <button onclick="addOffer('{{this._id}}')" class="btn btn-success">Add offer</button>   
+                                        <a href="/admin/editbrand/{{this._id}}" class="btn btn-primary">Edit</a>
+                                        <button  onclick="deleteBrand('{{this._id}}','{{this.brand}}')" class=" btn btn-danger" id="deleteBtn" style="margin-left: 7px;">Delete</button>
+
+                                            </td>
+                                           
+                                            
+                                        </tr>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Add new offers to {{this.brand}}</h5>
+                                                <button type="button" class="close" onclick="closeModal('{{this._id}}')" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form  method="post">
+                                                  <div class="modal-body">
+                                            
+                                             <h6>Discount:</h6>     <input type="text" id="discount{{this._id}}" name="discount" class="form-control" value="{{this.discount}}">
+
+                                              
+                                               
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button onclick="closeModal('{{this._id}}')" type="button" class="btn btn-secondary" >Close</button>
+                                                <button onclick="saveChanges('{{this._id}}')"  type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                            </form>
+                                          
+                                            </div>
+                                        </div>
+                                        </div>
+                                       
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Table End -->
+
+
+<script>
+    function saveChanges(brandId){
+       let discount= document.getElementById('discount'+brandId).value
+       console.log(brandId,discount)
+
+       $.ajax({
+        url:'/admin/add-brand-offer',
+        data:{brandId:brandId,discount:discount},
+        method:'patch',
+        success:(response)=>{
+            if(response.status){
+                window.location.reload()
+            }
+        }
+       })
+
+       
+    }
+</script>
+
+<script>
+    
+    function deleteBrand(brandId,brand){
+       
+        Swal.fire({
+  title: 'Are you sure to delete this brand',
+  text: brand,  
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#fc0303',
+  cancelButtonColor: '#03a9fc',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {  
+  if (result.isConfirmed) {
+    Swal.fire(
+        
+      'Deleted!',
+      'Your file has been deleted.',
+      'success' 
+         
+    )
+     $.ajax({
+            url:'/admin/delete-brand/?brandId='+brandId,
+            method:'delete',
+            success:(response)=>{
+                if(response.status){
+                window.location.reload()
+                }
+            }
+        })
+  }
+})
+        
+}
+
+      
+</script>
+
+<script>
+    function addOffer(brandId){
+        $('#myModal'+brandId).modal('show')
+    }
+</script>
+
+<script>
+   function closeModal(brandId){
+    $('#myModal'+brandId).modal('hide');
+   }
+   
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+          

@@ -1,0 +1,165 @@
+
+
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">Wishlist<span>❤️</span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href='/#topSellingProducts'>Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Wishlist❤️</li>
+                    </ol>
+                </div>
+            </nav>
+
+        {{#if products}}
+
+            <div class="page-content">
+            	<div class="container">
+					<table class="table table-wishlist table-mobile">
+						<thead>
+							<tr>
+								<th>Product</th>
+								<th>Price</th>
+								<th>Stock Status</th>
+								<th>Options</th>
+								<th></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							{{#each products}}
+							<tr>{{#each this.product }}
+								<td class="product-col">
+									<div class="product">
+										<figure class="product-media">
+											<a href="/quickview/{{this._id}}">
+												
+												<img src="/images/product/{{this.img.[0]}}" alt="Product image">
+											</a>
+										</figure> 
+
+										<h3 class="product-title">
+											<a href="/quickview/{{this._id}}">{{this.title}}</a>
+										</h3>
+									</div>
+								</td>
+								<td class="price-col">₹{{this.price}}</td>
+								{{#if this.stock}}
+								<td class="stock-col"><span class="in-stock">In stock</span></td>
+								{{else}}
+								<td class="stock-col"><span class="text-danger">Out of stock</span></td>
+
+								{{/if}}
+								<td class="action-col">
+									{{#if this.stock}}
+									<button onclick="addToCart('{{this._id}}')" class="btn btn-block btn-outline-primary-2"><i class="icon-cart-plus"></i>Move to Cart</button>
+								    {{else}}
+								   <button  class="btn btn-block btn-outline-danger">OUT OF STOCK!</button>
+		
+									{{/if}}
+								</td>
+								<td class="remove-col"><button onclick="removeFromWish('{{this._id}}')"   class="btn-remove">❌</button></td>
+							</tr>
+                            {{/each}}
+                           {{/each}}
+                           
+						</tbody>
+					</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	            	<div class="wishlist-share">
+	            		<div class="social-icons social-icons-sm mb-2">
+	            			<label class="social-label">Share on:</label>
+	    					<a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+	    					<a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+	    					<a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+	    					<a href="#" class="social-icon" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+	    					<a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+	    				</div><!-- End .soial-icons -->
+	            	</div><!-- End .wishlist-share -->
+            	</div><!-- End .container -->
+            </div><!-- End .page-content -->
+        {{else}}
+		<h1 class="text-center">Your Wishlist Is Empty🖤 <img style="width: 40%; margin-left: 43rem;"
+				src="/images/no-data-concept-illustration_114360-2506.jpg" alt=""></h1>
+		<div class="text-center mb-5">
+			<a href="/" class="btn btn-dark">Shop Now</a>
+		</div>
+     
+        {{/if}}
+
+
+
+
+        </main><!-- End .main -->
+
+        <script>
+	function addToCart(proId){
+		$.ajax({
+			url:'/add-to-cart/'+proId,
+			method:'get',
+			success:(response)=>{ 
+                console.log(response)
+				if(response.status){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Item has been added to cart 🛒',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+						
+                    
+					 let cartCount=$('#cartcount').html()
+					 cartCount=parseInt(cartCount)+1
+                     console.log(cartCount)
+					 $('#cartcount').html(cartCount)
+					 setTimeout(() => window.location.href='/cart', 1200);
+				}
+			} 
+		})
+	}
+  </script>
+
+<script>
+    function removeFromWish(proId){
+        $.ajax({
+            url:'/remove-wishlist/'+proId,
+            method:'post',
+            success:(response)=>{
+              if(response.status){
+               Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'Item has been removed from wishlist❤️',
+                        showConfirmButton: false,
+                        timer: 1500
+                        })
+                  	setTimeout(() => window.location.reload(), 2500);
+               
+				
+			}
+            }
+        })
+    }
+</script>
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

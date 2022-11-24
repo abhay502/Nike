@@ -1,0 +1,160 @@
+<div class="container-fluid pt-4 px-4">
+                 <h3 class="text-center text-success">Order Management Table</h3>
+                <div class="row g-4">
+                   
+                    <div class="col-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h2 class="text-center">Order Management By Admin📈</h2>
+
+                            
+
+                            <div class="table-responsive mt-5">
+                                
+                                <table class="table text-dark">
+                                    <thead>
+                                        <tr class="">
+                                            <th>SL.no</th>
+                                            <th scope="col">USER</th>
+                                            <th scope="col">ORDER ID</th>
+                                            <th scope="col">ORDERED-DATE</th>
+                                            <th scope="col">SUBTOTAL</th>
+                                            <th scope="col">PAYMENT-METHOD</th>
+                                            <th scope="col">STATUS</th>
+                                             <th >OPTIONS</th>
+                                             
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         {{#each orders}}
+                                        <tr>
+                                           {{!-- onclick=" return confirm('Are you sure to delete {{this.title}}')" --}}
+                                           <td>{{inc @index}}</td>
+                                           <td>{{this.userDetails.username}}</td>
+                                            <td>{{this._id}}</td>
+                                            
+                                            <td >{{this.date}}</td>
+                                            <td>₹{{this.totalAmount}}</td>
+                                                   
+                                            <td>{{this.paymentMethod}}</td>    
+                                           
+                                            <td >{{this.status}}</td>
+                                            <td>
+                                            {{#if_eq this.status 'Return requested'}}
+                                             <button onclick="approveReturn('{{this._id}}')" class="btn btn-warning" >Approve return </button>
+
+                                            {{else}}
+                                            {{#if_eq this.status 'Return Approved'}}
+
+                                            {{else}}
+                                          
+                                       
+
+                                   
+                                            <button onclick="updateStatus('{{this._id}}')" class="btn btn-primary" >Update Order status</button>
+                                       
+                                            {{/if_eq}}
+                                            {{/if_eq}}
+                                            <a href="/admin/view-more/{{this._id}}" class="btn btn-success">View more</a>
+                                            
+                                            </td>
+                                           
+                                            
+                                        </tr>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="myModal{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Update Order Status</h5>
+                                                <button type="button" class="close" onclick="closeModal('{{this._id}}')" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <select class="form-select" aria-label="Default select example" name="status" id="dropDown{{this._id}}">
+                                       
+                                                    <option value="{{this.status}}">{{this.status}}</option>
+                                                    <option value="Shipped">Shipped</option>
+                                                    <option value="Delivered">Delivered</option>
+                                                </select>
+                                               
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button onclick="closeModal('{{this._id}}')" type="button" class="btn btn-secondary" >Close</button>
+                                                <button onclick="saveChanges('{{this._id}}',)"  type="button" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                       
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+<script>
+    function updateStatus(orderId){
+        $('#myModal'+orderId).modal('show')
+    }
+</script>
+
+<script>
+   function closeModal(orderId){
+    $('#myModal'+orderId).modal('hide');
+   }
+   
+</script>
+
+<script>
+    function saveChanges(orderId){
+           let status=document.getElementById('dropDown'+orderId).value
+           console.log(status)
+           console.log(orderId)
+
+        $.ajax({
+            url:'/admin/statuschange/',
+            data:{ orderId:orderId, status:status },
+            method:'patch',
+            success:(response)=>{
+                if(response.status){
+                window.location.reload()
+                }
+              
+                   
+            }
+        })  
+
+     
+
+
+    }
+</script>
+
+<script>
+    function approveReturn(orderId){
+        console.log(orderId)
+        $.ajax({
+            url:'/admin/approveReturn/',
+            data:{orderId:orderId},
+            method:'patch',
+            success:(response)=>{
+                if(response.status){
+                    window.location.reload()
+                }
+
+            }
+        })
+    }
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

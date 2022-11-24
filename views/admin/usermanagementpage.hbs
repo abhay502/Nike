@@ -1,0 +1,170 @@
+<!-- Table Start -->
+            <div class="container-fluid pt-4 px-4">
+                 <h3 class="text-center text-info">Product Management Table</h3>
+                <div class="row g-4">
+                   
+                    <div class="col-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h2 class="text-center">Product Management By Admin</h2>
+
+                           
+
+                            <div class="table-responsive mt-5">
+                                
+                                <table class="table text-dark">
+                                    <thead>
+                                        <tr class="">
+                                            <th scope="col">SL.no</th>
+                                            <th scope="col">USERNAME</th>
+                                            <th scope="col">EMAIL</th>
+                                            <th scope="col">PHONE</th>
+                                            <th scope="col">STATUS</th>
+                                           
+                                            <th scope="col">ACTIONS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         {{#each user}}
+                                        <tr>
+                                           {{!-- onclick=" return confirm('Are you sure to delete {{this.title}}')" --}}
+                                            <th >{{inc @index}}</th>
+                                            <td>{{this.username}}</td>
+                                            <td>{{this.email}}</td>
+                                            <td>{{this.phonenumber}}</td>
+                                            <td>
+                                                  
+                                                <span id="{{this._id}}-blockstatus" class="badge rounded-pill {{#if this.userBlocked}}bg-danger{{else}}bg-success{{/if}}">
+                                                {{#if this.userBlocked}}
+                                                blocked
+                                                {{else}}
+                                                active
+                                                {{/if}}
+                                                </span>
+                                                
+                                                
+                                                </td>
+                                          
+                                          
+                                            <td>
+                                            {{#if this.userBlocked}}
+                                         <button id="{{this._id}}-unblock" onclick="unblockUser('{{this._id}}','{{this.username}}')" class=" btn btn-success"  style="margin-left: 7px;">Unblock</button>
+                                         <button id="{{this._id}}-block" onclick="blockUser('{{this._id}}','{{this.username}}')" class=" btn btn-danger hidden"  style="margin-left: 7px;">Block</button>
+                                            {{else}}
+                                        <button id="{{this._id}}-unblock" onclick="unblockUser('{{this._id}}','{{this.username}}')" class=" btn btn-success hidden"  style="margin-left: 7px;">Unblock</button>
+                                         <button id="{{this._id}}-block" onclick="blockUser('{{this._id}}','{{this.username}}')" class=" btn btn-danger"  style="margin-left: 7px;">Block</button>
+                                          {{/if}}
+                                            </td>
+                                           
+                                            
+                                        </tr>
+                                       
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Table End -->
+<style>
+    .btn.hidden{
+        display: none;
+    }
+</style>
+<script>
+    
+    function blockUser(userId,username){
+       
+        Swal.fire({
+  title: 'Are you sure to block',
+  text: username,  
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#fc0303',
+  cancelButtonColor: '#03a9fc',
+  confirmButtonText: 'Yes, block !'+username
+}).then((result) => {  
+  if (result.isConfirmed) {
+    Swal.fire(
+        
+      'Blocked!',
+      username+' has been blocked successfully.',
+      'success'
+         
+    )
+     $.ajax({
+            url:'/admin/block-user/?userId='+userId,
+            method:'patch',
+            success:(response)=>{
+             
+                if(response.status){
+                    $('#'+userId+'-unblock').toggleClass('hidden')
+                    $('#'+userId+'-block').toggleClass('hidden')
+                    $('#'+userId+'-blockstatus').toggleClass('bg-danger')
+
+                    $('#'+userId+'-blockstatus').toggleClass('bg-success')
+                    
+                     $('#'+userId+'-blockstatus').text("blocked")
+
+
+
+                }
+                
+                
+                
+            }
+        })
+  }
+})
+        
+}
+
+function unblockUser(userId,username){
+       
+        Swal.fire({
+  title: 'Are you sure to unblock',
+  text: username,  
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#fc0303',
+  cancelButtonColor: '#03a9fc',
+  confirmButtonText: 'Yes, unblock !'+username
+}).then((result) => {  
+  if (result.isConfirmed) {
+    Swal.fire(
+        
+      'Unblocked!',
+      'User has been Unblocked successfully.',
+      'success'
+         
+    )
+     $.ajax({
+            url:'/admin/unblock-user/?userId='+userId,
+            method:'patch',
+            success:(response)=>{
+
+                 if(response.status){
+                    $('#'+userId+'-unblock').toggleClass('hidden')
+                    $('#'+userId+'-block').toggleClass('hidden')
+                    $('#'+userId+'-blockstatus').toggleClass('bg-success')
+                      $('#'+userId+'-blockstatus').toggleClass('bg-danger')
+                    
+                    
+                    
+                     $('#'+userId+'-blockstatus').text("active")
+
+                }
+
+                
+            }
+        })
+  }
+})
+        
+}
+
+      
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
