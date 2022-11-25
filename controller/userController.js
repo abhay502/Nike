@@ -7,17 +7,15 @@ let session = require('express-session')
 const userhelper = require('../helpers/userhelper')
 const addresshelper = require('../helpers/addresshelper')
 const nocache = require('nocache');
-const { Client } = require('twilio/lib/twiml/VoiceResponse');
+
 
 const { Db } = require('mongodb');
 require('dotenv').config()
 
-
-
 let YOUR_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID
 let YOUR_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN
 let YOUR_SERVICE_ID = process.env.TWILIO_SERVICE_ID
-const client = require("twilio")(YOUR_ACCOUNT_SID, YOUR_AUTH_TOKEN);
+var client = require("twilio")(YOUR_ACCOUNT_SID, YOUR_AUTH_TOKEN);
 
 
 const homePage = async (req, res) => {
