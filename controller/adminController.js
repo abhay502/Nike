@@ -40,7 +40,7 @@ const postLogin = (req, res) => {                                               
 
   if (admincredentials.email == req.body.email && admincredentials.password == req.body.password) {
 
-    req.session.adminLoggedin = true;
+    req.session.adminLoggedin = true;     
     req.session.admin = true;
     res.redirect('/admin')
   } else {
@@ -48,7 +48,7 @@ const postLogin = (req, res) => {                                               
     req.session.admin = false
     res.redirect('/admin')
   } 
-}
+} 
 
 const getLogout = (req, res) => {
   req.session.adminLoggedin = ''
