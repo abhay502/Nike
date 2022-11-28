@@ -15,6 +15,8 @@ Link to website: https://nikecart.ml
 * User profile
 * OTP-Login
 * Image Zooming
+* Brand wise offer 
+* Product searching option
 * Multiple Address Management
 * User Block/Unblock(By admin)
 * Chart & Graph reports on Admin side
