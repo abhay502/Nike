@@ -56,5 +56,5 @@ Link to website: https://nikecart.ml
 
 
 ## Future Updations:
-* User generated reviews
+* User generated reviews 
 * Order-tracking
