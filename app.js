@@ -12,7 +12,7 @@ var handlebars=require('handlebars')
 
 const sWal=require('sweetalert2')             
 
-
+ 
 db.connect((err)=>{
   if (err) {
     console.log('Connection error')
@@ -20,7 +20,7 @@ db.connect((err)=>{
     console.log('connection successfully on http://localhost:3000/') 
   }
 })
-
+ 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 
@@ -88,3 +88,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+   
