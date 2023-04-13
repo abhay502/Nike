@@ -1,7 +1,7 @@
 # E-commerce website using nodejs-Express and Mongodb
 ecommerce website(for nike shoes )
 
-Link to website: https://nikecart.ml
+Link to website: https://nikexabay.xyz
 
 ## Features:
 * User & Admin Authentication
